@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package easy_housing;
+option go_package = "easy-housing/api";
+
+import "api/grpc-graphql-gateway/include/graphql/graphql.proto";
+
+service EasyHousing {
+  option (graphql.service) = {
+    host: "easy-housing-app-server-service:9000"
+    insecure: true
+  };
+
+  rpc Echo(EchoRequest) returns (EchoResponse) {
+    option (graphql.schema) = {
+      type: QUERY   // declare as Query
+      name: "echo" // query name
+    };
+  };
+}
+
+message EchoRequest {
+  string message = 1;
+}
+
+message EchoResponse {
+  string message = 1;
+}
