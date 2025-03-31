@@ -137,15 +137,15 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              cpu: "1"
-              memory: "1Gi"
-            requests:
               cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "250m"
               memory: "128Mi"
           imagePullPolicy: Always
-#          envFrom:
-#            - secretRef:
-#                name: easy-housing-app-psql-db-superuser
+          envFrom:
+            - secretRef:
+                name: easy-housing-app-psql-db-superuser
 ---
 apiVersion: v1
 kind: Service
@@ -159,28 +159,28 @@ spec:
     - name: grpc
       protocol: TCP
       port: 9000
-#---
-#apiVersion: postgresql.cnpg.io/v1
-#kind: Cluster
-#metadata:
-#  name: easy-housing-app-psql-db
-#  namespace: easy-housing-app
-#spec:
-#  instances: 1
-#  storage:
-#    storageClass: ssd-hostpath
-#    size: 10Gi
-#    pvcTemplate:
-#      selector:
-#        matchLabels:
-#          role: storage
-#  resources:
-#    requests:
-#      cpu: "100m"
-#      memory: "128Mi"
-#    limits:
-#      cpu: "200m"
-#      memory: "256Mi"
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: easy-housing-app-psql-db
+  namespace: easy-housing-app
+spec:
+  instances: 1
+  storage:
+    storageClass: ssd-hostpath
+    size: 5Gi
+    pvcTemplate:
+      selector:
+        matchLabels:
+          role: storage
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
 #---
 #apiVersion: v1
 #kind: Service
