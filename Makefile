@@ -12,7 +12,7 @@ build-gql: test
 	echo "Building main.go"
 	go build -o build/gql-main ./gateway/main.go
 
-run: fetch-data build
+run: build
 	echo "Now running main"
 	./build/main
 
@@ -20,16 +20,11 @@ run-gql: build-gql
 	echo "Running GraphQL Server"
 	./build/gql-main
 
-test: fetch-data
+test:
 	go test ./...
 
 test-k8s:
 	GRPC_HOST=10.0.0.108:30003 go test ./... --ginkgo.label-filter "integration"
-
-fetch-data:
-	if [ ! -d "data" ]; then mkdir data; fi
-	echo "Checking for missing scryfall-db"
-	if [ ! -f "data/scryfall-db.json" ]; then curl -o data/scryfall-db.json https://data.scryfall.io/oracle-cards/oracle-cards-20241217220246.json; fi
 
 install-go-deps:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
@@ -39,7 +34,7 @@ clean:
 	rm -r ./build
 
 generate:
-	protoc --go_out=.  --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative --graphql_out=.. "api/easy-housing.proto"
+	protoc --go_out=.  --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative "api/easy-housing.proto"
 
 deploy: docker-build docker-push k8s-rollout-all-updates
 

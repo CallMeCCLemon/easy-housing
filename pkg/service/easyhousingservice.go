@@ -10,6 +10,7 @@ import (
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/reflection"
 	"latentlab.cc/easyhousing/api"
+	"latentlab.cc/easyhousing/pkg/logging"
 	"log"
 	"net"
 )
@@ -26,8 +27,9 @@ type EasyHousingServerImpl struct {
 }
 
 func (e EasyHousingServerImpl) Echo(ctx context.Context, request *api.EchoRequest) (*api.EchoResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	logger := logging.CreateLogger()
+	logger.Info(fmt.Sprintf("Echo Request: %s", request))
+	return &api.EchoResponse{Message: request.Message}, nil
 }
 
 func (e EasyHousingServerImpl) mustEmbedUnimplementedEasyHousingServer() {
