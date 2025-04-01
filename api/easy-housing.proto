@@ -4,7 +4,29 @@ package easy_housing;
 option go_package = "easy-housing/api";
 
 service EasyHousing {
+  // Echo is a test method to check if the server is running.
   rpc Echo(EchoRequest) returns (EchoResponse) {};
+
+  // RegisterUser registers a user with the server. The server will generate a unique ID for the user and return it to the client.
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {};
+
+  // AuthenticateUser authenticates a user with the server. The server will generate a unique ID for the user and return it to the client.
+  rpc AuthenticateUser(AuthenticateUserRequest) returns (AuthenticateUserResponse) {};
+
+  // RegisterHome registers a home with the server. The server will generate a unique ID for the home and return it to the client.
+  rpc RegisterHome(RegisterHomeRequest) returns (RegisterHomeResponse) {};
+
+  // AddDoc adds documents to a home application.
+  rpc AddDoc(AddDocRequest) returns (AddDocResponse) {};
+
+  // ScheduleAppointment schedules an appointment for a home application.
+  rpc ScheduleAppointment(ScheduleAppointmentRequest) returns (ScheduleAppointmentResponse) {};
+
+  // CompleteListing attempts to complete a listing for a home application.
+  rpc CompleteListing(CompleteListingRequest) returns (CompleteListingResponse) {};
+
+  // GetListingStatus gets the status of a home application.
+  rpc GetListingStatus(GetListingStatusRequest) returns (GetListingStatusResponse) {};
 }
 
 message EchoRequest {
@@ -13,4 +35,114 @@ message EchoRequest {
 
 message EchoResponse {
   string message = 1;
+}
+
+// RegisterUserRequest represents a request to register a user.
+message RegisterUserRequest {
+}
+
+// RegisterUserResponse represents a response to a request to register a user.
+message RegisterUserResponse {
+  // message is a message to display to the user.
+  string message = 1;
+
+  // userId is the id of the user
+  string userId = 2;
+}
+
+// AuthenticateUserRequest represents a request to authenticate a user.
+message AuthenticateUserRequest {
+}
+
+// AuthenticateUserResponse represents a response to a request to authenticate a user.
+message AuthenticateUserResponse {
+  // message is a message to display to the user.
+  string message = 1;
+}
+
+// RegisterHomeRequest represents a request to register a home.
+message RegisterHomeRequest {
+  // address is the address of the home
+  string address = 1;
+
+  // ownerId is the id of the owner of the home
+  string ownerId = 2;
+}
+
+// RegisterHomeResponse represents a response to a request to register a home.
+message RegisterHomeResponse {
+  // message is a message to display to the user.
+  string message = 1;
+}
+
+// AddDocRequest represents a request to add docs to a home.
+message AddDocRequest {
+  // homeId is the id of the home to add docs to
+  string homeId = 1;
+
+  // docLocation is the object storage location of the provided doc
+  string docLocation = 2;
+}
+
+// AddDocResponse represents a response to a request to add docs to a home.
+message AddDocResponse {
+  // message is a message to display to the user.
+  string message = 1;
+}
+
+// ScheduleAppointmentRequest represents a request to schedule an appointment for a home.
+message ScheduleAppointmentRequest {
+  // homeId is the id of the home to schedule an appointment for
+  string homeId = 1;
+
+  // appointmentTime is in seconds since epoch
+  int64 appointmentTime = 2;
+
+  // appointmentType is the type of appointment to schedule
+  AppointmentType appointmentType = 3;
+}
+
+// AppointmentType represents the type of appointment to schedule.
+enum AppointmentType {
+  APPRAISAL = 0;
+  INSPECTION = 1;
+}
+
+// ScheduleAppointmentResponse represents a response to a request to schedule an appointment for a home.
+message ScheduleAppointmentResponse {
+  // message is a message to display to the user.
+  string message = 1;
+}
+
+// CompleteListingRequest represents a request to complete a listing for a home.
+message CompleteListingRequest {
+  // homeId is the id of the home to complete a listing for
+  string homeId = 1;
+}
+
+// CompleteListingResponse represents a response to a request to complete a listing for a home.
+message CompleteListingResponse {
+  // message is a message to display to the user.
+  string message = 1;
+}
+
+// GetListingStatusRequest represents a request to get the status of a home.
+message GetListingStatusRequest {
+  // homeId is the id of the home to get the status of
+  string homeId = 1;
+}
+
+// GetListingStatusResponse represents a response to a request to get the status of a home.
+message GetListingStatusResponse {
+  // message is a message to display to the user.
+  string message = 1;
+
+  // ownershipVerified is true if the home has been verified as owned by the user
+  bool ownershipVerified = 3;
+
+  // inspectionCompleted is true if the home has been inspected
+  bool inspectionCompleted = 4;
+
+  // appraisalCompleted is true if the home has been appraised
+  bool appraisalCompleted = 5;
 }

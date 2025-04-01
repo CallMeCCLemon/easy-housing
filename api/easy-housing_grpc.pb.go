@@ -19,14 +19,36 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	EasyHousing_Echo_FullMethodName = "/easy_housing.EasyHousing/Echo"
+	EasyHousing_Echo_FullMethodName                = "/easy_housing.EasyHousing/Echo"
+	EasyHousing_RegisterUser_FullMethodName        = "/easy_housing.EasyHousing/RegisterUser"
+	EasyHousing_AuthenticateUser_FullMethodName    = "/easy_housing.EasyHousing/AuthenticateUser"
+	EasyHousing_RegisterHome_FullMethodName        = "/easy_housing.EasyHousing/RegisterHome"
+	EasyHousing_AddDoc_FullMethodName              = "/easy_housing.EasyHousing/AddDoc"
+	EasyHousing_ScheduleAppointment_FullMethodName = "/easy_housing.EasyHousing/ScheduleAppointment"
+	EasyHousing_CompleteListing_FullMethodName     = "/easy_housing.EasyHousing/CompleteListing"
+	EasyHousing_GetListingStatus_FullMethodName    = "/easy_housing.EasyHousing/GetListingStatus"
 )
 
 // EasyHousingClient is the client API for EasyHousing service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EasyHousingClient interface {
+	// Echo is a test method to check if the server is running.
 	Echo(ctx context.Context, in *EchoRequest, opts ...grpc.CallOption) (*EchoResponse, error)
+	// RegisterUser registers a user with the server. The server will generate a unique ID for the user and return it to the client.
+	RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error)
+	// AuthenticateUser authenticates a user with the server. The server will generate a unique ID for the user and return it to the client.
+	AuthenticateUser(ctx context.Context, in *AuthenticateUserRequest, opts ...grpc.CallOption) (*AuthenticateUserResponse, error)
+	// RegisterHome registers a home with the server. The server will generate a unique ID for the home and return it to the client.
+	RegisterHome(ctx context.Context, in *RegisterHomeRequest, opts ...grpc.CallOption) (*RegisterHomeResponse, error)
+	// AddDoc adds documents to a home application.
+	AddDoc(ctx context.Context, in *AddDocRequest, opts ...grpc.CallOption) (*AddDocResponse, error)
+	// ScheduleAppointment schedules an appointment for a home application.
+	ScheduleAppointment(ctx context.Context, in *ScheduleAppointmentRequest, opts ...grpc.CallOption) (*ScheduleAppointmentResponse, error)
+	// CompleteListing attempts to complete a listing for a home application.
+	CompleteListing(ctx context.Context, in *CompleteListingRequest, opts ...grpc.CallOption) (*CompleteListingResponse, error)
+	// GetListingStatus gets the status of a home application.
+	GetListingStatus(ctx context.Context, in *GetListingStatusRequest, opts ...grpc.CallOption) (*GetListingStatusResponse, error)
 }
 
 type easyHousingClient struct {
@@ -47,11 +69,96 @@ func (c *easyHousingClient) Echo(ctx context.Context, in *EchoRequest, opts ...g
 	return out, nil
 }
 
+func (c *easyHousingClient) RegisterUser(ctx context.Context, in *RegisterUserRequest, opts ...grpc.CallOption) (*RegisterUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegisterUserResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_RegisterUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *easyHousingClient) AuthenticateUser(ctx context.Context, in *AuthenticateUserRequest, opts ...grpc.CallOption) (*AuthenticateUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AuthenticateUserResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_AuthenticateUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *easyHousingClient) RegisterHome(ctx context.Context, in *RegisterHomeRequest, opts ...grpc.CallOption) (*RegisterHomeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegisterHomeResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_RegisterHome_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *easyHousingClient) AddDoc(ctx context.Context, in *AddDocRequest, opts ...grpc.CallOption) (*AddDocResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddDocResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_AddDoc_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *easyHousingClient) ScheduleAppointment(ctx context.Context, in *ScheduleAppointmentRequest, opts ...grpc.CallOption) (*ScheduleAppointmentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScheduleAppointmentResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_ScheduleAppointment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *easyHousingClient) CompleteListing(ctx context.Context, in *CompleteListingRequest, opts ...grpc.CallOption) (*CompleteListingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CompleteListingResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_CompleteListing_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *easyHousingClient) GetListingStatus(ctx context.Context, in *GetListingStatusRequest, opts ...grpc.CallOption) (*GetListingStatusResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetListingStatusResponse)
+	err := c.cc.Invoke(ctx, EasyHousing_GetListingStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EasyHousingServer is the server API for EasyHousing service.
 // All implementations must embed UnimplementedEasyHousingServer
 // for forward compatibility.
 type EasyHousingServer interface {
+	// Echo is a test method to check if the server is running.
 	Echo(context.Context, *EchoRequest) (*EchoResponse, error)
+	// RegisterUser registers a user with the server. The server will generate a unique ID for the user and return it to the client.
+	RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error)
+	// AuthenticateUser authenticates a user with the server. The server will generate a unique ID for the user and return it to the client.
+	AuthenticateUser(context.Context, *AuthenticateUserRequest) (*AuthenticateUserResponse, error)
+	// RegisterHome registers a home with the server. The server will generate a unique ID for the home and return it to the client.
+	RegisterHome(context.Context, *RegisterHomeRequest) (*RegisterHomeResponse, error)
+	// AddDoc adds documents to a home application.
+	AddDoc(context.Context, *AddDocRequest) (*AddDocResponse, error)
+	// ScheduleAppointment schedules an appointment for a home application.
+	ScheduleAppointment(context.Context, *ScheduleAppointmentRequest) (*ScheduleAppointmentResponse, error)
+	// CompleteListing attempts to complete a listing for a home application.
+	CompleteListing(context.Context, *CompleteListingRequest) (*CompleteListingResponse, error)
+	// GetListingStatus gets the status of a home application.
+	GetListingStatus(context.Context, *GetListingStatusRequest) (*GetListingStatusResponse, error)
 	mustEmbedUnimplementedEasyHousingServer()
 }
 
@@ -64,6 +171,27 @@ type UnimplementedEasyHousingServer struct{}
 
 func (UnimplementedEasyHousingServer) Echo(context.Context, *EchoRequest) (*EchoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Echo not implemented")
+}
+func (UnimplementedEasyHousingServer) RegisterUser(context.Context, *RegisterUserRequest) (*RegisterUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
+}
+func (UnimplementedEasyHousingServer) AuthenticateUser(context.Context, *AuthenticateUserRequest) (*AuthenticateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AuthenticateUser not implemented")
+}
+func (UnimplementedEasyHousingServer) RegisterHome(context.Context, *RegisterHomeRequest) (*RegisterHomeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterHome not implemented")
+}
+func (UnimplementedEasyHousingServer) AddDoc(context.Context, *AddDocRequest) (*AddDocResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddDoc not implemented")
+}
+func (UnimplementedEasyHousingServer) ScheduleAppointment(context.Context, *ScheduleAppointmentRequest) (*ScheduleAppointmentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScheduleAppointment not implemented")
+}
+func (UnimplementedEasyHousingServer) CompleteListing(context.Context, *CompleteListingRequest) (*CompleteListingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompleteListing not implemented")
+}
+func (UnimplementedEasyHousingServer) GetListingStatus(context.Context, *GetListingStatusRequest) (*GetListingStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetListingStatus not implemented")
 }
 func (UnimplementedEasyHousingServer) mustEmbedUnimplementedEasyHousingServer() {}
 func (UnimplementedEasyHousingServer) testEmbeddedByValue()                     {}
@@ -104,6 +232,132 @@ func _EasyHousing_Echo_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EasyHousing_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).RegisterUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_RegisterUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).RegisterUser(ctx, req.(*RegisterUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EasyHousing_AuthenticateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthenticateUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).AuthenticateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_AuthenticateUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).AuthenticateUser(ctx, req.(*AuthenticateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EasyHousing_RegisterHome_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterHomeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).RegisterHome(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_RegisterHome_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).RegisterHome(ctx, req.(*RegisterHomeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EasyHousing_AddDoc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddDocRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).AddDoc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_AddDoc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).AddDoc(ctx, req.(*AddDocRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EasyHousing_ScheduleAppointment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScheduleAppointmentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).ScheduleAppointment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_ScheduleAppointment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).ScheduleAppointment(ctx, req.(*ScheduleAppointmentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EasyHousing_CompleteListing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompleteListingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).CompleteListing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_CompleteListing_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).CompleteListing(ctx, req.(*CompleteListingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EasyHousing_GetListingStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetListingStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EasyHousingServer).GetListingStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EasyHousing_GetListingStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EasyHousingServer).GetListingStatus(ctx, req.(*GetListingStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EasyHousing_ServiceDesc is the grpc.ServiceDesc for EasyHousing service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +368,34 @@ var EasyHousing_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Echo",
 			Handler:    _EasyHousing_Echo_Handler,
+		},
+		{
+			MethodName: "RegisterUser",
+			Handler:    _EasyHousing_RegisterUser_Handler,
+		},
+		{
+			MethodName: "AuthenticateUser",
+			Handler:    _EasyHousing_AuthenticateUser_Handler,
+		},
+		{
+			MethodName: "RegisterHome",
+			Handler:    _EasyHousing_RegisterHome_Handler,
+		},
+		{
+			MethodName: "AddDoc",
+			Handler:    _EasyHousing_AddDoc_Handler,
+		},
+		{
+			MethodName: "ScheduleAppointment",
+			Handler:    _EasyHousing_ScheduleAppointment_Handler,
+		},
+		{
+			MethodName: "CompleteListing",
+			Handler:    _EasyHousing_CompleteListing_Handler,
+		},
+		{
+			MethodName: "GetListingStatus",
+			Handler:    _EasyHousing_GetListingStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
