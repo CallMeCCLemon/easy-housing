@@ -7,18 +7,9 @@ build: generate test
 	echo "Building main.go"
 	go build -o build/main ./cmd/main.go
 
-build-gql: test
-	if [ ! -d "build" ]; then mkdir build; fi
-	echo "Building main.go"
-	go build -o build/gql-main ./gateway/main.go
-
 run: build
 	echo "Now running main"
 	./build/main
-
-run-gql: build-gql
-	echo "Running GraphQL Server"
-	./build/gql-main
 
 test:
 	go test ./...
@@ -38,9 +29,9 @@ generate:
 
 deploy: docker-build docker-push k8s-rollout-all-updates
 
-docker-build: docker-build-server docker-build-gateway
+docker-build: docker-build-server
 
-docker-push: docker-push-server docker-push-gateway
+docker-push: docker-push-server
 
 docker-build-server:
 	docker build --platform=linux/amd64 -t 100.69.236.43:32000/easy-housing-server:latest -f Dockerfile .
@@ -48,16 +39,7 @@ docker-build-server:
 docker-push-server:
 	docker push 100.69.236.43:32000/easy-housing-server:latest
 
-docker-build-gateway:
-	docker build --platform=linux/amd64 -t 100.69.236.43:32000/easy-housing-gql-gateway:latest -f gateway/Dockerfile .
-
-docker-push-gateway:
-	docker push 100.69.236.43:32000/easy-housing-gql-gateway:latest
-
-k8s-rollout-all-updates: k8s-rollout-server-updates k8s-rollout-gql-updates
+k8s-rollout-all-updates: k8s-rollout-server-updates
 
 k8s-rollout-server-updates:
 	kubectl rollout restart deployment -n mtg-mana-sim-app easy-housing-server-deployment
-
-k8s-rollout-gql-updates:
-	kubectl rollout restart deployment -n mtg-mana-sim-app easy-housing-gql-deployment
