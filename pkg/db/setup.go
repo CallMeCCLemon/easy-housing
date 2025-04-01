@@ -9,7 +9,8 @@ import (
 	"time"
 )
 
-func Setup() error {
+// CreateClient Creates a new gorm client with the database connection using environment variables.
+func CreateClient() (*gorm.DB, error) {
 	cfg := postgres.Config{
 		DSN: fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 			os.Getenv("HOST"), os.Getenv("USERNAME"), os.Getenv("PASSWORD"), "app", os.Getenv("PORT")),
@@ -23,20 +24,29 @@ func Setup() error {
 		},
 	}
 
-	db, err := gorm.Open(psql, &gormCfg)
+	gormDB, err := gorm.Open(psql, &gormCfg)
+	if err != nil {
+		return nil, err
+	}
+
+	return gormDB, nil
+}
+
+func SetupTables() error {
+	gormDB, err := CreateClient()
 	if err != nil {
 		return err
 	}
 
-	err = db.AutoMigrate(&model.Home{})
+	err = gormDB.AutoMigrate(&model.Home{})
 	if err != nil {
 		return err
 	}
-	err = db.AutoMigrate(&model.SupportingDoc{})
+	err = gormDB.AutoMigrate(&model.SupportingDoc{})
 	if err != nil {
 		return err
 	}
-	err = db.AutoMigrate(&model.User{})
+	err = gormDB.AutoMigrate(&model.User{})
 	if err != nil {
 		return err
 	}

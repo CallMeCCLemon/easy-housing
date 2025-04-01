@@ -5,8 +5,8 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Setup", func() {
+var _ = Describe("SetupTables", func() {
 	It("Can setup the database", func() {
-		Expect(Setup()).ToNot(HaveOccurred())
+		Expect(SetupTables()).ToNot(HaveOccurred())
 	})
 })
