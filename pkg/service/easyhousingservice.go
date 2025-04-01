@@ -32,6 +32,41 @@ func (e EasyHousingServerImpl) Echo(ctx context.Context, request *api.EchoReques
 	return &api.EchoResponse{Message: request.Message}, nil
 }
 
+func (e EasyHousingServerImpl) RegisterUser(ctx context.Context, request *api.RegisterUserRequest) (*api.RegisterUserResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
+func (e EasyHousingServerImpl) AuthenticateUser(ctx context.Context, request *api.AuthenticateUserRequest) (*api.AuthenticateUserResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
+func (e EasyHousingServerImpl) RegisterHome(ctx context.Context, request *api.RegisterHomeRequest) (*api.RegisterHomeResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
+func (e EasyHousingServerImpl) AddDoc(ctx context.Context, request *api.AddDocRequest) (*api.AddDocResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
+func (e EasyHousingServerImpl) ScheduleAppointment(ctx context.Context, request *api.ScheduleAppointmentRequest) (*api.ScheduleAppointmentResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
+func (e EasyHousingServerImpl) CompleteListing(ctx context.Context, request *api.CompleteListingRequest) (*api.CompleteListingResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
+func (e EasyHousingServerImpl) GetListingStatus(ctx context.Context, request *api.GetListingStatusRequest) (*api.GetListingStatusResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}
+
 func (e EasyHousingServerImpl) mustEmbedUnimplementedEasyHousingServer() {
 	//TODO implement me
 	panic("implement me")
